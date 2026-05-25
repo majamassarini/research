@@ -55,7 +55,6 @@ The above design choices make the command line tool and also the code behind it 
 We will need:
 
 1. a way to resolve reverse dependencies
-
    - we can follow the [Koschei way](https://github.com/fedora-infra/koschei/blob/master/koschei/backend/depsolve.py) which uses `hawkey` from `libdnf`
    - or we can follow the [Mass prebuild way](https://gitlab.com/fedora/packager-tools/mass-prebuild/-/blob/main/mass_prebuild/utils/whatrequires.py?ref_type=heads): given a package or a set of packages, namely "main packages", the mass pre-builder will calculate the list of its direct reverse dependencies: packages that explicitly mark one of the main packages in their "BuildRequires" field. As far as I can understand it, this is a **less deep** and thus **less complete** approach compared with the Koschei solution.
    - we can **avoid calculating dependencies** and let the user specify them in a static way.
@@ -63,9 +62,7 @@ We will need:
 2. a way to schedule builds in Koji or COPR (or both).
 
    We are quite good at submitting builds in both services but we are not good at dealing with dependencies.
-
    - **if we don't need to interact with the rebuild process** we can depend upon:
-
      - the [COPR build batches](https://docs.pagure.org/copr.copr/user_documentation.html#build-batches) feature that allows you to define the order of your builds in advance.
 
      ```
